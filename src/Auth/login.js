@@ -15,6 +15,7 @@ import Notification from '../../components/notification';
 import Toast from 'react-native-toast-message';
 import {RouteContext} from '../../helper/route_context';
 import {axiosCallsNoAuth} from '../../helper/api';
+import {storeData, storeData2} from '../../helper/storage';
 
 export const Login = props => {
   const [visible, setVisible] = useState(false);
@@ -60,7 +61,7 @@ export const Login = props => {
 
           setLoading(false);
           if (res.data.success == false) {
-            setCurrentState('Home');
+            // setCurrentState('Home');
             console.warn('error', res.data.message);
             Toast.show({
               type: 'error',
@@ -72,12 +73,17 @@ export const Login = props => {
               topOffset: 30,
               bottomOffset: 60,
             });
+          } else {
+            storeData2('token', res.data.token);
+            storeData('userdetails', res.data.admin);
+
+            setCurrentState('Home');
           }
         }
       }
     } catch (e) {
       console.warn('error coming', e);
-      setCurrentState('Home');
+
       alert('poor network connection');
     }
   };

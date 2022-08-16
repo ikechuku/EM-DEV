@@ -4,10 +4,7 @@ import {getData} from './storage';
 import {ToastLong} from './toast';
 
 export const axiosCalls = async (path, method, data = null) => {
-  const userToken = await getData('user');
   const token = await getData('token');
-  const parsedUser = JSON.parse(token);
-  console.warn('userData', `Bearer ${parsedUser}`);
 
   try {
     console.warn('path>>>>>>>ttt', `${endPoint}${path}`);
@@ -15,19 +12,21 @@ export const axiosCalls = async (path, method, data = null) => {
       method: method,
       url: `${endPoint}${path}`,
       data: data,
-      headers: {Authorization: `Bearer ${parsedUser}`},
+      headers: {Authorization: `Bearer ${token}`},
     });
     if (res) {
       return res;
     }
   } catch (err) {
+    console.warn('gfgfgfg???>>>>', err);
     if (err.response) {
       if (err.response.data) {
+        console.warn('gfgfgfg???>>>>', err);
         return {er: err.response.data};
       }
     } else {
       if (err.message) {
-        // console.warn('gbasss', err.message);
+        console.warn('gbasss', err.message);
         ToastLong(`${err.message}`);
       }
       ToastLong(`${err}`);
@@ -48,6 +47,7 @@ export const axiosCallsNoAuth = async (path, method, data = null) => {
     }
   } catch (err) {
     if (err.response) {
+      console.warn('errotype', err);
       return {er: err.response.data};
     } else {
       return {er: err};

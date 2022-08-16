@@ -15,12 +15,22 @@ import {ScrollView} from 'react-native-gesture-handler';
 import Modal from 'react-native-modal';
 import CircleImage from '../../../components/circleImage';
 import InputText from '../../../components/textInput';
+import Toast from 'react-native-toast-message';
 import {Button} from '../../../component/button';
+import {axiosCalls, axiosCallsNoAuth} from '../../../helper/api';
+import {ToastLong} from '../../../helper/toast';
 
 export const Home = props => {
   const [visible, setVisible] = useState(false);
   const [active, setActive] = useState(false);
   const [editInfo, setEditInfo] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [admins, setAdmins] = useState([]);
+  const [exco, setExco] = useState('');
+  const [passcode, setPasscode] = useState('');
 
   const admin = () => {
     setVisible(true);
@@ -31,6 +41,99 @@ export const Home = props => {
     setEditInfo('');
     setActive('edit');
   };
+
+  const createAdmin = async () => {
+    try {
+      if (
+        name == '' ||
+        phone == '' ||
+        email == '' ||
+        exco == '' ||
+        passcode == ''
+      ) {
+        // Toast.show({
+        //   type: 'error',
+        //   position: 'top',
+        //   text1: 'Error',
+        //   text2: `All feilds require`,
+        //   visibilityTime: 6000,
+        //   autoHide: true,
+        //   topOffset: 30,
+        //   bottomOffset: 60,
+        // });
+        alert('All feilds require');
+      } else {
+        if (phone.length != 11) {
+          // Toast.show({
+          //   type: 'error',
+          //   position: 'top',
+          //   text1: 'Error',
+          //   text2: `Incorrect phone number`,
+          //   visibilityTime: 6000,
+          //   autoHide: true,
+          //   topOffset: 30,
+          //   bottomOffset: 60,
+          // });
+          alert('Incorrect phone number`');
+        } else {
+          if (passcode.length != 4) {
+            // Toast.show({
+            //   type: 'error',
+            //   position: 'top',
+            //   text1: 'Error',
+            //   text2: `Incorrect passcode`,
+            //   visibilityTime: 6000,
+            //   autoHide: true,
+            //   topOffset: 30,
+            //   bottomOffset: 60,
+            // });
+            alert('Incorrect passcode');
+          } else {
+            setLoading(true);
+            const payLoad = {
+              name: name,
+              phone: phone,
+              email: email,
+              password: passcode,
+              excoRole: exco,
+            };
+            setLoading(true);
+
+            console.warn('payload coming', payLoad);
+            const res = await axiosCalls('/create', 'POST', payLoad);
+            if (res.data.success == false) {
+              console.warn('responce....>>>', res.data);
+              ToastLong(res.data.message);
+              setLoading(false);
+            } else {
+              console.warn('responce....>>>', res.data);
+              setLoading(false);
+            }
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('error coming', e);
+      alert('unreliable network connection');
+    }
+  };
+  useEffect(() => {
+    getAdminList();
+  }, []);
+
+  const getAdminList = async () => {
+    try {
+      console.warn('this is the admin list??>>>>');
+      const res = await axiosCalls('/admins', 'GET');
+      console.warn('this is the admin list', res.data);
+      console.warn('this is the admin list>>', res.data.admins);
+      setAdmins(res.data.admins);
+      console.warn('this is the admin list>>', res.data.admins.length);
+    } catch (e) {
+      console.warn('get admin error...', e);
+    }
+  };
+
   return (
     <View
       style={{
@@ -336,6 +439,8 @@ export const Home = props => {
                     ic={AppIcons.person}
                     height={45}
                     width={'95%'}
+                    value={name}
+                    onChange={value => setName(value)}
                   />
                 </View>
 
@@ -346,6 +451,10 @@ export const Home = props => {
                     ic={AppIcons.phone}
                     height={45}
                     width={'95%'}
+                    maxLength={11}
+                    keyboardType={'numeric'}
+                    value={phone}
+                    onChange={value => setPhone(value)}
                   />
                 </View>
 
@@ -356,6 +465,8 @@ export const Home = props => {
                     ic={AppIcons.at}
                     height={45}
                     width={'95%'}
+                    value={email}
+                    onChange={value => setEmail(value)}
                   />
                 </View>
 
@@ -366,16 +477,23 @@ export const Home = props => {
                     ic={AppIcons.exco}
                     height={45}
                     width={'95%'}
+                    value={exco}
+                    onChange={value => setExco(value)}
                   />
                 </View>
 
                 <View
                   style={{width: '100%', paddingLeft: '5%', marginTop: RF(20)}}>
                   <InputText
-                    placeholder={'EPasscode'}
+                    placeholder={'Passcode'}
                     ic={AppIcons.pass}
                     height={45}
                     width={'95%'}
+                    value={passcode}
+                    maxLength={4}
+                    keyboardType={'numeric'}
+                    secure={true}
+                    onChange={value => setPasscode(value)}
                   />
                 </View>
 
@@ -385,7 +503,8 @@ export const Home = props => {
                   width={'90%'}
                   marginLeft={'5%'}
                   height={50}
-                  onPress={() => setVisible(false)}
+                  loading={loading}
+                  onPress={() => createAdmin()}
                 />
               </View>
             ) : (
@@ -491,7 +610,7 @@ export const Home = props => {
             }}>
             <TouchableOpacity
               style={{marginTop: 15}}
-              onPress={() => setVisible(false)}>
+              onPress={() => setActive(false)}>
               <Image
                 style={{height: 17.5, width: 15}}
                 source={AppIcons.cancel}
@@ -551,14 +670,137 @@ export const Home = props => {
             </View>
             <View
               style={{
-                backgroundColor: 'pink',
                 width: '100%',
                 height: '65%',
-                marginTop: 10,
-              }}></View>
+                marginTop: 20,
+              }}>
+              <View
+                style={{
+                  width: '100%',
+                  height: 60,
+                  paddingHorizontal: '2%',
+                }}>
+                <H1 size={RF(7)} color={'#716D6D'}>
+                  Charles Avis
+                </H1>
+                <Hr size={RF(7)} color={'#716D6D'}>
+                  Name
+                </Hr>
+              </View>
+              <View
+                style={{
+                  width: '100%',
+                  height: 60,
+                  paddingHorizontal: '2%',
+                }}>
+                <H1 size={RF(7)} color={'#716D6D'}>
+                  18 Road 55,
+                </H1>
+                <Hr size={RF(7)} color={'#716D6D'}>
+                  Address
+                </Hr>
+              </View>
+              <View
+                style={{
+                  width: '100%',
+                  height: 60,
+                  paddingHorizontal: '2%',
+                }}>
+                <H1 size={RF(7)} color={'#716D6D'}>
+                  avischarles@info.com
+                </H1>
+                <Hr size={RF(7)} color={'#716D6D'}>
+                  Email Address
+                </Hr>
+              </View>
+              <View
+                style={{
+                  width: '100%',
+                  height: 60,
+                  paddingHorizontal: '2%',
+                }}>
+                <H1 size={RF(7)} color={'#716D6D'}>
+                  07012127878
+                </H1>
+                <Hr size={RF(7)} color={'#716D6D'}>
+                  Phone Number
+                </Hr>
+              </View>
+              <View
+                style={{
+                  width: '100%',
+                  height: 60,
+                  paddingHorizontal: '2%',
+                }}>
+                <H1 size={RF(7)} color={'#716D6D'}>
+                  Chairman
+                </H1>
+                <Hr size={RF(7)} color={'#716D6D'}>
+                  Executive Role
+                </Hr>
+              </View>
+              <View
+                style={{
+                  width: '100%',
+                  height: 60,
+                  paddingHorizontal: '2%',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <TouchableOpacity>
+                  <View
+                    style={{
+                      backgroundColor: '#A986A7',
+                      width: 80,
+                      height: 30,
+                      justifyContent: 'center',
+                      borderRadius: 3,
+                      alignItems: 'center',
+                      flexDirection: 'row',
+                    }}>
+                    <Image
+                      style={{height: 13, width: 11}}
+                      source={AppIcons.edit}
+                      resizeMode="contain"
+                    />
+                    <View style={{marginLeft: 10}}>
+                      <H1 size={RF(7)} color={'#FFFFFF'}>
+                        Edit
+                      </H1>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity>
+                  <View
+                    style={{
+                      backgroundColor: '#5E38AF',
+                      width: 80,
+                      height: 30,
+                      justifyContent: 'center',
+                      borderRadius: 3,
+                      alignItems: 'center',
+                      flexDirection: 'row',
+                      marginLeft: 40,
+                    }}>
+                    <Image
+                      style={{height: 13, width: 11}}
+                      source={AppIcons.del}
+                      resizeMode="contain"
+                    />
+                    <View style={{marginLeft: 10}}>
+                      <H1 size={RF(7)} color={'#FFFFFF'}>
+                        Delete
+                      </H1>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
         )}
       </Modal>
+      <Toast ref={ref => Toast.setRef(ref)} />
     </View>
   );
 };
