@@ -120,6 +120,9 @@ export const Home = props => {
   useEffect(() => {
     getAdminList();
   }, []);
+  useEffect(() => {
+    console.warn('jkk');
+  }, []);
 
   const getAdminList = async () => {
     try {
