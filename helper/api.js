@@ -108,7 +108,6 @@ const getTotalAmountPending = async type => {
     } else {
       if (type == 'withdraw') {
       }
-
       // console.warn('success>>oooo', res.data.availableBalance);
     }
   }

@@ -47,74 +47,6 @@ export const Home = props => {
     setActive('edit');
   };
 
-  const createAdmin = async () => {
-    try {
-      if (
-        name == '' ||
-        phone == '' ||
-        email == '' ||
-        exco == '' ||
-        passcode == ''
-      ) {
-
-        alert('All feilds require');
-      } else {
-        if (phone.length != 11) {
-
-          alert('Incorrect phone number`');
-        } else {
-          if (passcode.length != 4) {
-
-            alert('Incorrect passcode');
-          } else {
-            setLoading(true);
-            const payLoad = {
-              name: name,
-              phone: phone,
-              email: email,
-              password: passcode,
-              excoRole: exco,
-            };
-            setLoading(true);
-
-            console.warn('payload coming', payLoad);
-            const res = await axiosCalls('/create', 'POST', payLoad);
-            if (res?.data?.success == false) {
-              console.warn('responce....>>>', res.data);
-              ToastLong(res.data.message);
-              setLoading(false);
-            } else {
-              console.warn('responce....>>>', res.data);
-              setLoading(false);
-            }
-          }
-        }
-      }
-    } catch (e) {
-      console.warn('error coming', e);
-      alert('unreliable network connection');
-    }
-  };
-  // useEffect(() => {
-  //   getAdminList();
-
-  // }, []);
-  // useEffect(() => {
-  //   console.warn('jkk');
-  // }, []);
-
-  const getAdminList = async () => {
-    try {
-      console.warn('this is the admin list??>>>>');
-      const res = await axiosCalls('/admins', 'GET');
-      console.warn('this is the admin list', res.data);
-      console.warn('this is the admin list>>', res.data.admins);
-      setAdmins(res.data.admins);
-      console.warn('this is the admin list>>', res.data.admins.length);
-    } catch (e) {
-      console.warn('get admin error...', e);
-    }
-  };
 
   const updateActive = useStoreActions(
     actions => actions.activePage.updateActive,
@@ -140,7 +72,7 @@ export const Home = props => {
             paddingLeft: '5%',
             justifyContent: 'center',
           }}>
-          <H1>Olawaiye Estate</H1>
+          <H1>HOUSE</H1>
         </View>
 
         <View

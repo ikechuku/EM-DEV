@@ -26,8 +26,7 @@ export const Commerce = props => {
   const [modal, setModal] = useState(false);
   const [arenaModal, setArenaModal] = useState(false);
   const [investModal, setInvestModal] = useState(false);
-  const [service, setService] = useState(false);
-  const [active, setActive] = useState('realEstate');
+  const [active, setActive] = useState('goods');
 
   return (
     <View
@@ -80,7 +79,7 @@ export const Commerce = props => {
               </View>
             </View>
           ) : (
-            <CircleImage icon={AppIcons.realEstate} />
+              <CircleImage icon={AppIcons.realEstate} onPress={() => setActive('realEstate')} />
           )}
         </TouchableOpacity>
         <View style={{marginLeft: RF(10)}}>
@@ -104,7 +103,7 @@ export const Commerce = props => {
                 </View>
               </View>
             ) : (
-              <CircleImage icon={AppIcons.food} />
+                <CircleImage icon={AppIcons.food} onPress={() => setActive('food')} />
             )}
           </TouchableOpacity>
         </View>
@@ -129,7 +128,7 @@ export const Commerce = props => {
                 </View>
               </View>
             ) : (
-              <CircleImage icon={AppIcons.bag} />
+                <CircleImage icon={AppIcons.bag} onPress={() => setActive('goods')} />
             )}
           </TouchableOpacity>
         </View>
@@ -142,6 +141,8 @@ export const Commerce = props => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
+
+
         {active == 'realEstate' ? (
           <P color={Colors.appTextBlack} size={RF(10)}>
             Properties posted for purchase, lease and rent
@@ -209,208 +210,112 @@ export const Commerce = props => {
           </View>
         </TouchableOpacity>
       ) : active == 'food' ? (
-        <View
-          style={{
-            width: '100%',
-            height: RF(90),
-            backgroundColor: 'rgba(217, 217, 217, 0.21)',
-            marginTop: RF(55),
-            flexDirection: 'row',
-          }}>
-          <View
-            style={{
-              width: '10%',
-              height: RF(90),
-              paddingVertical: 8,
-            }}>
-            <CheckBox
+          <TouchableOpacity onPress={() => setArenaModal(true)}>
+            <View
               style={{
-                flex: 1,
-              }}
-              onClick={() => {
-                setSelection(!isSelected);
-              }}
-              isChecked={isSelected}
-              checkBoxColor={'#A3A1A1'}
-            />
-          </View>
+                width: '100%',
+                height: RF(90),
+                backgroundColor: 'rgba(217, 217, 217, 0.21)',
+                marginTop: RF(15),
+                flexDirection: 'row',
+              }}>
+              <View
+                style={{
+                  width: '10%',
+                  height: RF(90),
+                  paddingVertical: 8,
+                }}>
+                <CheckBox
+                  style={{
+                    flex: 1,
+                  }}
+                  onClick={() => {
+                    setSelection(!isSelected);
+                  }}
+                  isChecked={isSelected}
+                  checkBoxColor={'#A3A1A1'}
+                />
+              </View>
 
-          <View
-            style={{
-              width: '70%',
-              height: RF(90),
-              paddingLeft: 2,
-              paddingVertical: 8,
-            }}>
-            <P size={RF(10)}>5litres of Oha Soup </P>
+              <View
+                style={{
+                  width: '70%',
+                  height: RF(90),
+                  paddingLeft: 2,
+                  paddingVertical: 8,
+                }}>
+                <P size={RF(10)}>5litres of Oha Soup </P>
 
-            <H1 size={RF(10)}>N5,000</H1>
-          </View>
+                <H1 size={RF(10)}>N5,000</H1>
+              </View>
 
-          <View
-            style={{
-              width: '20%',
-              height: RF(90),
-              paddingVertical: 8,
-            }}>
-            <P size={RF(10)} color={Colors.appPrimary}>
-              60 Days{' '}
-            </P>
-          </View>
-        </View>
+              <View
+                style={{
+                  width: '20%',
+                  height: RF(90),
+                  paddingVertical: 8,
+                }}>
+                <P size={RF(10)} color={Colors.appPrimary}>
+                  60 Days{' '}
+                </P>
+              </View>
+            </View>
+          </TouchableOpacity>
       ) : (
-        <View
-          style={{
-            width: '100%',
-            height: RF(90),
-            backgroundColor: 'rgba(217, 217, 217, 0.21)',
-            marginTop: RF(55),
-            flexDirection: 'row',
-          }}>
-          <View
-            style={{
-              width: '10%',
-              height: RF(90),
-              paddingVertical: 8,
-            }}>
-            <CheckBox
-              style={{
-                flex: 1,
-              }}
-              onClick={() => {
-                setSelection(!isSelected);
-              }}
-              isChecked={isSelected}
-              checkBoxColor={'#A3A1A1'}
-            />
-          </View>
+            <TouchableOpacity onPress={() => setInvestModal(true)}>
+              <View
+                style={{
+                  width: '100%',
+                  height: RF(90),
+                  backgroundColor: 'rgba(217, 217, 217, 0.21)',
+                  marginTop: RF(15),
+                  flexDirection: 'row',
+                }}>
+                <View
+                  style={{
+                    width: '10%',
+                    height: RF(90),
+                    paddingVertical: 8,
+                  }}>
+                  <CheckBox
+                    style={{
+                      flex: 1,
+                    }}
+                    onClick={() => {
+                      setSelection(!isSelected);
+                    }}
+                    isChecked={isSelected}
+                    checkBoxColor={'#A3A1A1'}
+                  />
+                </View>
 
-          <View
-            style={{
-              width: '70%',
-              height: RF(90),
-              paddingLeft: 2,
-              paddingVertical: 8,
-            }}>
-            <P size={RF(10)}>Wooden hand floor Mop </P>
+                <View
+                  style={{
+                    width: '70%',
+                    height: RF(90),
+                    paddingLeft: 2,
+                    paddingVertical: 8,
+                  }}>
+                  <P size={RF(10)}>Wooden Floor Mop </P>
 
-            <H1 size={RF(10)}>N1,500</H1>
-          </View>
+                  <H1 size={RF(10)}>N1,500</H1>
+                </View>
 
-          <View
-            style={{
-              width: '20%',
-              height: RF(90),
-              paddingVertical: 8,
-            }}>
-            <P size={RF(10)} color={Colors.appPrimary}>
-              60 Days{' '}
-            </P>
-          </View>
-        </View>
+                <View
+                  style={{
+                    width: '20%',
+                    height: RF(90),
+                    paddingVertical: 8,
+                  }}>
+                  <P size={RF(10)} color={Colors.appPrimary}>
+                    60 Days{' '}
+                  </P>
+                </View>
+              </View>
+            </TouchableOpacity>
       )}
-      <TouchableOpacity onPress={() => setArenaModal(true)}>
-        <View
-          style={{
-            width: '100%',
-            height: RF(90),
-            backgroundColor: 'rgba(217, 217, 217, 0.21)',
-            marginTop: RF(15),
-            flexDirection: 'row',
-          }}>
-          <View
-            style={{
-              width: '10%',
-              height: RF(90),
-              paddingVertical: 8,
-            }}>
-            <CheckBox
-              style={{
-                flex: 1,
-              }}
-              onClick={() => {
-                setSelection(!isSelected);
-              }}
-              isChecked={isSelected}
-              checkBoxColor={'#A3A1A1'}
-            />
-          </View>
 
-          <View
-            style={{
-              width: '70%',
-              height: RF(90),
-              paddingLeft: 2,
-              paddingVertical: 8,
-            }}>
-            <P size={RF(10)}>Arena Investment </P>
 
-            <H1 size={RF(10)}>Legal Services</H1>
-          </View>
-
-          <View
-            style={{
-              width: '20%',
-              height: RF(90),
-              paddingVertical: 8,
-            }}>
-            <P size={RF(10)} color={Colors.appPrimary}>
-              60 Days{' '}
-            </P>
-          </View>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => setInvestModal(true)}>
-        <View
-          style={{
-            width: '100%',
-            height: RF(90),
-            backgroundColor: 'rgba(217, 217, 217, 0.21)',
-            marginTop: RF(15),
-            flexDirection: 'row',
-          }}>
-          <View
-            style={{
-              width: '10%',
-              height: RF(90),
-              paddingVertical: 8,
-            }}>
-            <CheckBox
-              style={{
-                flex: 1,
-              }}
-              onClick={() => {
-                setSelection(!isSelected);
-              }}
-              isChecked={isSelected}
-              checkBoxColor={'#A3A1A1'}
-            />
-          </View>
-
-          <View
-            style={{
-              width: '70%',
-              height: RF(90),
-              paddingLeft: 2,
-              paddingVertical: 8,
-            }}>
-            <P size={RF(10)}>Arena Investment </P>
-
-            <H1 size={RF(10)}>Legal Services</H1>
-          </View>
-
-          <View
-            style={{
-              width: '20%',
-              height: RF(90),
-              paddingVertical: 8,
-            }}>
-            <P size={RF(10)} color={Colors.appPrimary}>
-              60 Days{' '}
-            </P>
-          </View>
-        </View>
-      </TouchableOpacity>
       <Modal animationType="slide" transparent={true} visible={modal}>
         <View
           style={{
@@ -562,6 +467,36 @@ export const Commerce = props => {
               </Text>
               <Text style={{fontSize: 13, color: '#716D6D'}}>07012127878</Text>
             </View>
+            <View
+              style={{
+                width: '100%',
+                height: 60,
+                paddingHorizontal: '2%',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                border: 2,
+
+              }}>
+              <Button
+                text={'Decline'}
+                width={80}
+                height={30}
+                bg={Colors.appWhite}
+                color={Colors.appPrimary}
+                borderWidth={1}
+                // marginLeft={'5%'}
+                onPress={() => { setModal(false) }}
+              />
+
+              <Button
+                text={'Approve'}
+                width={80}
+                height={30}
+                marginLeft={'5%'}
+                onPress={() => { setModal(false) }}
+              />
+            </View>
           </View>
         </View>
       </Modal>
@@ -687,6 +622,36 @@ export const Commerce = props => {
                 Phone Number
               </Text>
               <Text style={{fontSize: 13, color: '#716D6D'}}>07012127878</Text>
+            </View>
+            <View
+              style={{
+                width: '100%',
+                height: 60,
+                paddingHorizontal: '2%',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                border: 2,
+
+              }}>
+              <Button
+                text={'Decline'}
+                width={80}
+                height={30}
+                bg={Colors.appWhite}
+                color={Colors.appPrimary}
+                borderWidth={1}
+                // marginLeft={'5%'}
+                onPress={() => { setArenaModal(false) }}
+              />
+
+              <Button
+                text={'Approve'}
+                width={80}
+                height={30}
+                marginLeft={'5%'}
+                onPress={() => { setArenaModal(false) }}
+              />
             </View>
           </View>
         </View>
@@ -821,6 +786,36 @@ export const Commerce = props => {
                 Phone Number
               </Text>
               <Text style={{fontSize: 13, color: '#716D6D'}}>07012127878</Text>
+            </View>
+            <View
+              style={{
+                width: '100%',
+                height: 60,
+                paddingHorizontal: '2%',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                border: 2,
+
+              }}>
+              <Button
+                text={'Decline'}
+                width={80}
+                height={30}
+                bg={Colors.appWhite}
+                color={Colors.appPrimary}
+                borderWidth={1}
+                // marginLeft={'5%'}
+                onPress={() => { setInvestModal(false) }}
+              />
+
+              <Button
+                text={'Approve'}
+                width={80}
+                height={30}
+                marginLeft={'5%'}
+                onPress={() => { setInvestModal(false) }}
+              />
             </View>
           </View>
         </View>

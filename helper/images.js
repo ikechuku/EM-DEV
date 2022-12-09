@@ -1,4 +1,4 @@
-import {Success} from '../Home/success';
+import { Success } from '../Home/success';
 
 export const AppIcons = {
   addUser: require('../assets/images/addUser.png'),
@@ -67,5 +67,6 @@ export const AppIcons = {
   guest: require('../assets/images/guest.png'),
   exco: require('../assets/images/exco.png'),
   adminedit: require('../assets/images/adminedit.png'),
+  send: require('../assets/images/send.png'),
 };
 AppIcons;

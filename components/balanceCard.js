@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -30,8 +30,8 @@ import {
   RF,
   RR,
 } from '../helper/constants';
-import {AppIcons} from '../helper/images';
-import {H1} from '../helper/element';
+import { AppIcons } from '../helper/images';
+import { H1 } from '../helper/element';
 
 const BalanceCard = props => {
   return (
@@ -42,20 +42,20 @@ const BalanceCard = props => {
         height: props.height,
         marginTop: props.marginTop,
         borderRadius: 6,
+
       }}>
       <View
         style={{
           width: '80%',
           height: RF(20),
           marginTop: '3%',
-
           alignItems: 'flex-start',
+
         }}>
         <H1
           style={{
             color: Colors.apptext,
             fontSize: 15,
-
             marginLeft: '7%',
           }}>
           Wallet Balance
@@ -69,6 +69,7 @@ const BalanceCard = props => {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'flex-start',
+
         }}>
         <View
           style={{
@@ -80,7 +81,7 @@ const BalanceCard = props => {
             alignItems: 'center',
             marginLeft: '5%',
           }}>
-          <Image style={{height: 25, width: 25}} source={AppIcons.thread} />
+          <Image style={{ height: 25, width: 25 }} source={AppIcons.thread} />
         </View>
         <View
           style={{

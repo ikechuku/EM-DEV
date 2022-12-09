@@ -75,6 +75,8 @@ const InputText = props => {
           placeholderColor: props.placeholderColor || 'black',
           color: props.placeholderColor || 'black',
         }}
+        multiline={props.multiline}
+        numberOfLines={props.numberOfLines}
         maxLength={props.maxLength}
         keyboardType={props.keyboardType}
         placeholder={props.placeholder}

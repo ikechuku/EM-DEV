@@ -7,7 +7,7 @@ import {RouteContext} from '../helper/route_context';
 export const Splash = props => {
   const {setCurrentState} = React.useContext(RouteContext);
   const getUserDetails = async () => {
-    console.warn('>>>>> goning');
+    // console.warn('>>>>> goning');
     setCurrentState('login');
   };
 

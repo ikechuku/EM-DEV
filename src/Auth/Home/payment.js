@@ -1,21 +1,22 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
-import {StatusBar, View, Image, TouchableOpacity} from 'react-native';
+import { StatusBar, View, Image, TouchableOpacity } from 'react-native';
 
-import {Colors, RF, RR} from '../../../helper/constants';
+import { Colors, RF, RR } from '../../../helper/constants';
 
-import {color} from 'react-native-reanimated';
-import {H1, P} from '../../../helper/element';
+import { color } from 'react-native-reanimated';
+import { H1, P } from '../../../helper/element';
 import Notification from '../../../components/notification';
-import {AppIcons} from '../../../helper/images';
+import { AppIcons } from '../../../helper/images';
 import ConfigButton from '../../../components/configButton';
 import BalanceCard from '../../../components/balanceCard';
 import MainCard from '../../../components/mainCard';
 import Modal from 'react-native-modal';
-import {Width} from '../../../helper';
+import { Width } from '../../../helper';
 import CircleImage from '../../../components/circleImage';
 import InputText from '../../../components/textInput';
-import {Button} from '../../../component/button';
+import { Button } from '../../../component/button';
+
 
 export const Payment = props => {
   const [visible, setVisible] = useState(false);
@@ -46,6 +47,52 @@ export const Payment = props => {
     setVisible(true);
   };
 
+
+  const TransactionCard = props => {
+    return (
+      <View style={{ marginTop: RF(20) }}>
+        <View
+          style={{
+            // backgroundColor: Colors.appCard,
+            width: props.width,
+            height: props.height,
+            marginTop: props.marginTop,
+            borderRadius: 6,
+            flexDirection: 'row',
+          }}>
+          <View
+            style={{
+              backgroundColor: Colors.appThickbrown,
+              width: 40,
+              height: 40,
+              borderRadius: 20,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginRight: 15,
+            }}>
+            <Image style={{ height: 19.5, width: 17 }} source={props.icon} />
+          </View>
+          <View style={{ width: '70%', paddingTop: '3%' }}>
+            <View>
+              <H1 size={RF(10)}>Water Payment</H1>
+            </View>
+            <View>
+              <P>Total Collection</P>
+            </View>
+          </View>
+          <View
+            style={{
+              // width: '30%',
+
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <H1 size={RF(10)}>₦90,000</H1>
+          </View>
+        </View>
+      </View>
+    );
+  };
   return (
     <View
       style={{
@@ -104,213 +151,229 @@ export const Payment = props => {
         </TouchableOpacity>
       </View>
 
-      <View
-        style={{
-          width: '100%',
-          paddingLeft: '5%',
-        }}>
-        <H1 color={'#716D6D'} size={RF(7)}>
-          Add and manage estate bill or levies
-        </H1>
-      </View>
-
-      <View
-        style={{
-          width: '100%',
-          justifyContent: 'space-between',
-          paddingHorizontal: '5%',
-          paddingVertical: 10,
-          flexDirection: 'row',
-          marginTop: 15,
-        }}>
-        <MainCard
-          text={'Update Estate Levy'}
-          des={'Update the new estate levy'}
-          icon={AppIcons.flag}
-          onPress={() => Estate('Update Estate Levy')}
-        />
-        <MainCard
-          text={'Update Water Bill'}
-          des={'Pay for your water bills'}
-          icon={AppIcons.tap}
-          onPress={() => Water('Update Water Bill')}
-        />
-      </View>
-
-      <View
-        style={{
-          width: '100%',
-          justifyContent: 'space-between',
-          paddingHorizontal: '5%',
-          paddingVertical: 10,
-          flexDirection: 'row',
-          marginTop: 1,
-        }}>
-        <MainCard
-          text={'Update Waste Bill'}
-          des={'Update the new waste bill'}
-          icon={AppIcons.del}
-          onPress={() => Waste('Update Waste Bill')}
-        />
-        <MainCard
-          text={'Update New Project'}
-          des={'Update new project contribution'}
-          icon={AppIcons.time}
-          onPress={() => Project('Update New Project')}
-        />
-      </View>
-
-      <Modal
-        isVisible={visible}
-        onBackButtonPress={() => setVisible(false)}
-        onBackdropPress={() => setVisible(false)}>
+      {payment ? <>
         <View
           style={{
-            height: RF(700),
-            width: '100%',
-
-            backgroundColor: Colors.appWhite,
+            flex: 1,
+            paddingTop: RR(15),
+            paddingHorizontal: '5%',
           }}>
-          <View
-            style={{
-              width: '100%',
-              height: RF(100),
 
-              flexDirection: 'row',
-              marginTop: RF(10),
-            }}>
-            <View
-              style={{
-                height: RF(100),
-                width: '40%',
 
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <H1 color={Colors.appPrimary} size={RF(8)}>
-                Make Payment
-              </H1>
-            </View>
-            <View
-              style={{
-                height: RF(100),
-                width: '50%',
 
-                justifyContent: 'space-around',
-                alignItems: 'center',
-                flexDirection: 'row',
-              }}>
-              <CircleImage
-                bg={active == 'Estate' ? Colors.appPrimary : null}
-                icon={AppIcons.flag}
-                onPress={() => setActive('Estate')}
-              />
+          <TransactionCard height={RF(80)} width={'100%'} icon={AppIcons.tap} />
+          <TransactionCard height={RF(80)} width={'100%'} icon={AppIcons.tap} />
 
-              <CircleImage
-                bg={active == 'Water' ? Colors.appPrimary : null}
-                icon={AppIcons.tap}
-                onPress={() => setActive('Water')}
-              />
-              <CircleImage
-                bg={active == 'Waste' ? Colors.appPrimary : null}
-                icon={AppIcons.del}
-                onPress={() => setActive('Waste')}
-              />
-              <CircleImage
-                bg={active == 'Project' ? Colors.appPrimary : null}
-                icon={AppIcons.time}
-                onPress={() => setActive('Project')}
-              />
-            </View>
-          </View>
-
-          <View
-            style={{
-              width: '100%',
-              height: RF(100),
-
-              flexDirection: 'row',
-              marginTop: RF(10),
-              paddingLeft: '8%',
-            }}>
-            <View
-              style={{
-                height: RF(100),
-
-                justifyContent: 'space-around',
-                alignItems: 'center',
-                flexDirection: 'row',
-              }}>
-              <CircleImage
-                bg={Colors.appPrimary}
-                icon={
-                  active == 'Estate'
-                    ? AppIcons.flag
-                    : active == 'Project'
-                    ? AppIcons.time
-                    : active == 'Waste'
-                    ? AppIcons.del
-                    : AppIcons.tap
-                }
-                onPress={() => setActive('Estate')}
-              />
-            </View>
-            <View
-              style={{
-                height: RF(100),
-
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginLeft: '5%',
-              }}>
-              <H1 color={Colors.appPrimary} size={RF(8)}>
-                {active == 'Estate'
-                  ? 'Update Estate Levy'
-                  : active == 'Waste'
-                  ? 'Update Waste Bill'
-                  : active == 'Project'
-                  ? 'Update New Project Fee'
-                  : 'Update Water Bill'}
-              </H1>
-            </View>
-          </View>
-
-          <View style={{width: '100%', paddingLeft: '5%', marginTop: RF(50)}}>
-            <InputText
-              placeholder={'Previous  Amount'}
-              ic={AppIcons.n}
-              width={'95%'}
-            />
-          </View>
-
-          <View style={{width: '100%', paddingLeft: '5%', marginTop: RF(20)}}>
-            <InputText
-              placeholder={'New Amount'}
-              ic={AppIcons.n}
-              width={'95%'}
-            />
-          </View>
-
-          <Button
-            marginTop={30}
-            text={'Submit'}
-            width={'90%'}
-            marginLeft={'5%'}
-            onPress={() => setVisible(false)}
-          />
-
-          <Button
-            marginTop={10}
-            width={'90%'}
-            text={'Cancel'}
-            marginLeft={'5%'}
-            bg={Colors.appWhite}
-            borderWidth={1}
-            color={'#A986A7'}
-            onPress={() => setVisible(false)}
-          />
         </View>
-      </Modal>
+      </> :
+        <>
+          <View
+            style={{
+              width: '100%',
+              paddingLeft: '5%',
+            }}>
+            <H1 color={'#716D6D'} size={RF(7)}>
+              Add and manage estate bill or levies
+            </H1>
+          </View>
+
+          <View
+            style={{
+              width: '100%',
+              justifyContent: 'space-between',
+              paddingHorizontal: '5%',
+              paddingVertical: 10,
+              flexDirection: 'row',
+              marginTop: 15,
+            }}>
+            <MainCard
+              text={'Update Estate Levy'}
+              des={'Update the new estate levy'}
+              icon={AppIcons.flag}
+              onPress={() => Estate('Update Estate Levy')}
+            />
+            <MainCard
+              text={'Update Water Bill'}
+              des={'Pay for your water bills'}
+              icon={AppIcons.tap}
+              onPress={() => Water('Update Water Bill')}
+            />
+          </View>
+
+          <View
+            style={{
+              width: '100%',
+              justifyContent: 'space-between',
+              paddingHorizontal: '5%',
+              paddingVertical: 10,
+              flexDirection: 'row',
+              marginTop: 1,
+            }}>
+            <MainCard
+              text={'Update Waste Bill'}
+              des={'Update the new waste bill'}
+              icon={AppIcons.del}
+              onPress={() => Waste('Update Waste Bill')}
+            />
+            <MainCard
+              text={'Update New Project'}
+              des={'Update new project contribution'}
+              icon={AppIcons.time}
+              onPress={() => Project('Update New Project')}
+            />
+          </View>
+
+          <Modal
+            isVisible={visible}
+            onBackButtonPress={() => setVisible(false)}
+            onBackdropPress={() => setVisible(false)}>
+            <View
+              style={{
+                height: RF(700),
+                width: '100%',
+
+                backgroundColor: Colors.appWhite,
+              }}>
+              <View
+                style={{
+                  width: '100%',
+                  height: RF(100),
+
+                  flexDirection: 'row',
+                  marginTop: RF(10),
+                }}>
+                <View
+                  style={{
+                    height: RF(100),
+                    width: '40%',
+
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <H1 color={Colors.appPrimary} size={RF(8)}>
+                    Make Payment
+                  </H1>
+                </View>
+                <View
+                  style={{
+                    height: RF(100),
+                    width: '50%',
+
+                    justifyContent: 'space-around',
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                  }}>
+                  <CircleImage
+                    bg={active == 'Estate' ? Colors.appPrimary : null}
+                    icon={AppIcons.flag}
+                    onPress={() => setActive('Estate')}
+                  />
+
+                  <CircleImage
+                    bg={active == 'Water' ? Colors.appPrimary : null}
+                    icon={AppIcons.tap}
+                    onPress={() => setActive('Water')}
+                  />
+                  <CircleImage
+                    bg={active == 'Waste' ? Colors.appPrimary : null}
+                    icon={AppIcons.del}
+                    onPress={() => setActive('Waste')}
+                  />
+                  <CircleImage
+                    bg={active == 'Project' ? Colors.appPrimary : null}
+                    icon={AppIcons.time}
+                    onPress={() => setActive('Project')}
+                  />
+                </View>
+              </View>
+
+              <View
+                style={{
+                  width: '100%',
+                  height: RF(100),
+
+                  flexDirection: 'row',
+                  marginTop: RF(10),
+                  paddingLeft: '8%',
+                }}>
+                <View
+                  style={{
+                    height: RF(100),
+
+                    justifyContent: 'space-around',
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                  }}>
+                  <CircleImage
+                    bg={Colors.appPrimary}
+                    icon={
+                      active == 'Estate'
+                        ? AppIcons.flag
+                        : active == 'Project'
+                          ? AppIcons.time
+                          : active == 'Waste'
+                            ? AppIcons.del
+                            : AppIcons.tap
+                    }
+                    onPress={() => setActive('Estate')}
+                  />
+                </View>
+                <View
+                  style={{
+                    height: RF(100),
+
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginLeft: '5%',
+                  }}>
+                  <H1 color={Colors.appPrimary} size={RF(8)}>
+                    {active == 'Estate'
+                      ? 'Update Estate Levy'
+                      : active == 'Waste'
+                        ? 'Update Waste Bill'
+                        : active == 'Project'
+                          ? 'Update New Project Fee'
+                          : 'Update Water Bill'}
+                  </H1>
+                </View>
+              </View>
+
+              <View style={{ width: '100%', paddingLeft: '5%', marginTop: RF(50) }}>
+                <InputText
+                  placeholder={'Previous  Amount'}
+                  ic={AppIcons.n}
+                  width={'95%'}
+                />
+              </View>
+
+              <View style={{ width: '100%', paddingLeft: '5%', marginTop: RF(20) }}>
+                <InputText
+                  placeholder={'New Amount'}
+                  ic={AppIcons.n}
+                  width={'95%'}
+                />
+              </View>
+
+              <Button
+                marginTop={30}
+                text={'Submit'}
+                width={'90%'}
+                marginLeft={'5%'}
+                onPress={() => setVisible(false)}
+              />
+
+              <Button
+                marginTop={10}
+                width={'90%'}
+                text={'Cancel'}
+                marginLeft={'5%'}
+                bg={Colors.appWhite}
+                borderWidth={1}
+                color={'#A986A7'}
+                onPress={() => setVisible(false)}
+              />
+            </View>
+          </Modal></>}
     </View>
   );
 };

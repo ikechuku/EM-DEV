@@ -89,7 +89,7 @@ export const Service = props => {
                 <CircleImage icon={AppIcons.service} />
                 <View style={{marginLeft: RF(0)}}>
                   <H1 size={RF(7)} color={Colors.appPrimary}>
-                    Service
+                    Servicemen 
                   </H1>
                 </View>
               </View>

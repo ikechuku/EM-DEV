@@ -15,6 +15,7 @@ export const Button = props => {
         marginTop: props.marginTop,
         marginLeft: props.marginLeft,
         borderWidth: props.borderWidth,
+        borderColor: props.borderColor|| Colors.appPrimary
       }}
       onPress={props.onPress}>
       {props.loading ? (

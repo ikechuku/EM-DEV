@@ -16,6 +16,8 @@ import Commerce from '../src/Auth/Home/commerce';
 import Payment from '../src/Auth/Home/payment';
 import Service from '../src/Auth/Home/service';
 import Wallet from '../src/Auth/Home/wallet';
+import Forum from '../src/Auth/Home/forum';
+import House from '../src/Auth/Home/house';
 import CircleImage from '../components/circleImage';
 import {AppIcons} from '../helper/images';
 import {Colors, RF} from '../helper/constants';
@@ -46,7 +48,7 @@ const Page = props => {
   );
 
   useEffect(() => {
-    console.warn('yy');
+    // console.warn('yy');
   }, [realActive]);
 
   return (
@@ -55,6 +57,8 @@ const Page = props => {
         {realActive == 'Home' ? <Home props={props} /> : null}
         {realActive == 'Commerce' ? <Commerce props={props} /> : null}
         {realActive == 'Payment' ? <Payment props={props} /> : null}
+        {realActive == 'Forum' ? <Forum props={props} /> : null}
+        {realActive == 'House' ? <House props={props} /> : null}
         {realActive == 'Service' ? <Service props={props} /> : null}
         {realActive == 'Wallet' ? <Wallet props={props} /> : null}
       </View>
@@ -76,7 +80,7 @@ const Page = props => {
             alignItems: 'center',
           }}>
           <TouchableOpacity onPress={() => updateActive('Home')}>
-            {realActive == 'Home' ? (
+            {(realActive == 'Home') || realActive == "Forum" ? (
               <View style={{marginTop: '-10%'}}>
                 <CircleImage
                   height={RF(60)}
@@ -190,7 +194,6 @@ const Page = props => {
         <View
           style={{
             height: '100%',
-
             width: '15%',
             flexDirection: 'row',
             justifyContent: 'center',

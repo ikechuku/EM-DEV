@@ -19,7 +19,7 @@ const activeModal = {
   active: 'Home',
 
   updateActive: action((state, data) => {
-    console.warn('tttttttt', data);
+    console.log('tttttttt', data);
     state.active = data;
   }),
 };

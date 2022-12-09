@@ -20,7 +20,7 @@ import BalanceCard from '../../components/balanceCard';
 import AdminCard from '../../components/adminCards';
 import Toast from 'react-native-toast-message';
 import Notification from '../../components/notification';
-import {axiosCallsNoAuth} from '../../helper/api';
+import {axiosCallsNoAuth, axiosCalls} from '../../helper/api';
 
 export const Signup = props => {
   const [visible, setVisible] = useState(false);
@@ -134,15 +134,15 @@ export const Signup = props => {
             password: password,
           };
 
-          console.warn('my payload', payLoad);
+          // console.warn('my payload', payLoad);
           const res = await axiosCallsNoAuth('/create', 'POST', payLoad);
-          console.warn('this is the response coming from backend', res);
+          // console.warn('this is the response coming from backend', res);
 
           setLoading(false);
         }
       }
     } catch (e) {
-      console.warn('error sinignup', e);
+      // console.warn('error sinignup', e);
       alert('Bad network connecvtions try again later');
     }
   };

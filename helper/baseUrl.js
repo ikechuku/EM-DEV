@@ -1,1 +1,1 @@
-export const endPoint = 'https://admin-qpayestatemanagementapp.herokuapp.com';
+export const endPoint = 'https://emanager-admin.vercel.app';

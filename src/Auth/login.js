@@ -55,14 +55,13 @@ export const Login = props => {
             email: email,
             password: password,
           };
-          console.warn('payload coming', payLoad);
+          // console.warn('payload coming', payLoad);
           const res = await axiosCallsNoAuth('/login', 'POST', payLoad);
-          console.warn('response coming from backend', res);
+          // console.warn('response coming from backend', res.er);
 
           setLoading(false);
           if (res.data.success == false) {
             // setCurrentState('Home');
-            console.warn('error', res.data.message);
             Toast.show({
               type: 'error',
               position: 'top',
@@ -73,6 +72,7 @@ export const Login = props => {
               topOffset: 30,
               bottomOffset: 60,
             });
+            alert(res.data.message);
           } else {
             storeData2('token', res.data.token);
             storeData('userdetails', res.data.admin);
@@ -82,9 +82,9 @@ export const Login = props => {
         }
       }
     } catch (e) {
-      console.warn('error coming', e);
+      // console.warn('error coming', e);
+      alert("Incorrect email or password");
 
-      alert('poor network connection');
     }
   };
 
@@ -127,6 +127,7 @@ export const Login = props => {
         ic={AppIcons.at}
         width={'100%'}
         paddingLeft={'5%'}
+        type="email"
         value={email}
         onChange={value => setEmail(value)}
       />
@@ -151,7 +152,7 @@ export const Login = props => {
         loading={loading}
         onPress={() => Submitfunction()}
       />
-      <View
+      {/* <View
         style={{
           alignItems: 'center',
           marginTop: 25,
@@ -170,13 +171,13 @@ export const Login = props => {
         <Text style={{color: '#9E9797', fontSize: 14, fontWeight: '600'}}>
           Are you new?
         </Text>
-      </View>
+      </View> */}
 
-      <Button
+      {/* <Button
         marginTop={20}
         text={'Sign up'}
         onPress={() => props.navigation.navigate('Signup')}
-      />
+      /> */}
 
       {/* <ButtonWithIcon />
       <BalanceCard />
