@@ -15,7 +15,7 @@ export const Colors = {
   appTextBlack: '#716D6D',
 };
 
-export const Width = (val: any) => {
+export const Width = (val) => {
   let res;
   val === undefined || null ? (res = null) : (res = (val / 100) * width);
   return res;

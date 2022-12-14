@@ -10,6 +10,7 @@ import Notification from '../../../components/notification';
 import { AppIcons } from '../../../helper/images';
 import ConfigButton from '../../../components/configButton';
 import BalanceCard from '../../../components/balanceCard';
+import Carousel from '../../../components/Carousel';
 import MainCard from '../../../components/mainCard';
 import { ScrollView } from 'react-native-gesture-handler';
 import Modal from 'react-native-modal';
@@ -107,7 +108,7 @@ export const Home = props => {
     try {
       console.warn('this is the admin list??>>>>');
       const res = await axiosCalls('/admins', 'GET');
-      console.warn('this is the admin list', res.data);
+      // console.warn('this is the admin list', res.data);
       console.warn('this is the admin list>>', res.data.admins);
       setAdmins(res.data.admins);
       console.warn('this is the admin list>>', res.data.admins.length);
@@ -194,15 +195,42 @@ export const Home = props => {
           <H1 color={Colors.appPrimary}>Payment Summary</H1>
         </View>
 
-        <View
+        <Carousel
+          style='slide'
+          items={[
+            {
+              title: 'Wallet Balance',
+              amount: 'N20,412,000',
+              buttonName: "View",
+              icon: "balance"
+
+            },
+            {
+              title: 'Number of Residents',
+              amount: '894',
+              buttonName: "View Record",
+              icon: "residence"
+
+            },
+            {
+              title: 'Number of Houses',
+              amount: '414',
+              buttonName: "Pay Ahead",
+              icon: "houses"
+
+            },
+          ]}
+        />
+        {/* <View
           style={{
             width: '100%',
             justifyContent: 'center',
             height: RF(170),
             paddingLeft: '5%',
+            backgroundColor: "red"
           }}>
-          <BalanceCard amount={'N20,412,000'} height={RF(160)} width={'95%'} />
-        </View>
+          <BalanceCard amount={'N20,412,000'} height={RF(160)} width={'95%'} buttonName="View" />
+        </View> */}
 
         <View
           style={{
