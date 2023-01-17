@@ -34,7 +34,7 @@
     "@babel/runtime": "^7.18.3",
     "@react-native-community/eslint-config": "^3.0.2",
     "@react-navigation/native": "5.9.4",
-    "@react-navigation/stack": "5.14.5",
+    "@react-navigation/stack": "^5.x",
     "babel-jest": "^28.1.1",
     "eslint": "^8.18.0",
     "jest": "^28.1.1",
