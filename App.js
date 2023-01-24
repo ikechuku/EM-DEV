@@ -42,14 +42,14 @@ const App = () => {
     <StoreProvider store={AppStore}>
       <RouteContext.Provider value={{currentState, setCurrentState}}>
         <NavigationContainer>
-          {/* {currentState === 'splash' ? (
+          {currentState === 'splash' ? (
             <Splash />
           ) : currentState === 'login' ? (
             <AuthStack />
           ) : (
             <HomeStack />
-          )} */}
-          <HomeStack />
+          )}
+          {/* <HomeStack /> */}
         </NavigationContainer>
       </RouteContext.Provider>
     </StoreProvider>
