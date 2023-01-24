@@ -20,8 +20,8 @@ import {storeData, storeData2} from '../../helper/storage';
 export const Login = props => {
   const [visible, setVisible] = useState(false);
   const {setCurrentState} = React.useContext(RouteContext);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('abj97x@gmail.com');
+  const [password, setPassword] = useState('9999');
   const [loading, setLoading] = useState(false);
 
   const Submitfunction = async () => {

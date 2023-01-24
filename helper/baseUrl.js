@@ -1,1 +1,1 @@
-export const endPoint = 'https://emanager-admin.onrender.com/';
+export const endPoint = 'https://emanager-admin.onrender.com';
