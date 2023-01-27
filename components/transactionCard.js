@@ -45,10 +45,10 @@ const TransactionCard = props => {
       }}>
       <View style={{width: '70%', paddingTop: '3%'}}>
         <View>
-          <H1 size={RF(10)}>SMS charge - Guest</H1>
+          <H1 size={RF(10)}>{props.type} - {props.name}</H1>
         </View>
         <View>
-          <P>February 15, 07:37AM</P>
+          <P>{props.createdOn}</P>
         </View>
       </View>
       <View
@@ -58,7 +58,7 @@ const TransactionCard = props => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <H1 size={RF(10)}>. ₦10</H1>
+        <H1 size={RF(10)}>{props.amount}</H1>
       </View>
     </View>
   );
