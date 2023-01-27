@@ -5,7 +5,7 @@ import { StatusBar, View, Image, TouchableOpacity } from 'react-native';
 import { Colors, RF, RR } from '../../../helper/constants';
 
 import { color } from 'react-native-reanimated';
-import { H1, P } from '../../../helper/element';
+import { H1,H2, P } from '../../../helper/element';
 import Notification from '../../../components/notification';
 import { AppIcons } from '../../../helper/images';
 import ConfigButton from '../../../components/configButton';
@@ -87,6 +87,7 @@ export const Payment = props => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
+            <H2 size={RF(10)}>₦90,000</H2>
             <H1 size={RF(10)}>₦90,000</H1>
           </View>
         </View>
