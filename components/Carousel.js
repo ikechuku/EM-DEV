@@ -77,7 +77,7 @@ export const Carousel = (props) => {
                             buttonName={item.buttonName}
                         />
                     );
-                  
+
 
                 })}
             </ScrollView>
@@ -166,6 +166,7 @@ const Slide = (props) => {
                         </H1>
                     </View>
                     <TouchableOpacity
+                        onPress={() => { }}
                         style={{
                             backgroundColor: Colors.appBrown,
                             height: RF(35),
