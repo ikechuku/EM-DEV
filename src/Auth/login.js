@@ -74,6 +74,7 @@ export const Login = props => {
             });
             alert(res.data.message);
           } else {
+            console.log("Login Token", res.data.token)
             storeData2('token', res.data.token);
             storeData('userdetails', res.data.admin);
 
