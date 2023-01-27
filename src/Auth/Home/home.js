@@ -40,6 +40,7 @@ export const Home = props => {
   const [exco, setExco] = useState('');
   const [passcode, setPasscode] = useState('');
   const [votingVisible, setVotingVisible] = useState(false);
+  const [balance, setBalance] = useState(null);
 
   const admin = () => {
     setVisible(true);
@@ -113,23 +114,34 @@ export const Home = props => {
     getAdminList();
   }, []);
 
-  // useEffect(() => {
-  //   console.warn('jkk');
-  // }, []);
+  useEffect(() => {
+  getWalletBalance()
+  }, []);
 
   const getAdminList = async () => {
     try {
       console.warn('this is the admin list??>>>>');
       const res = await axiosCalls('/admins', 'GET');
       // console.warn('this is the admin list', res.data);
-      console.log('this is the admin list>>', res.data.admins[0]);
+      // console.log('this is the admin list>>', res.data.admins[0]);
       setAdmins(res.data.admins);
       // console.warn('this is the admin list>>', res.data.admins.length);
     } catch (e) {
       console.warn('get admin error...', e);
     }
   };
-
+  const getWalletBalance = async () => {
+    try {
+      console.warn('this is the wallet Balance ??>>>>');
+      const res = await axiosCalls('/wallet/balance', 'GET');
+      // console.warn('this is the admin list', res.data);
+      // console.log('this is the Wallet balance]>>', res.data.balance);
+      setBalance(res.data.balance.value);
+      // console.warn('this is the admin list>>', res.data.admins.length);
+    } catch (e) {
+      console.warn('get Wallet Balance error...', e);
+    }
+  };
   const updateActive = useStoreActions(
     actions => actions.activePage.updateActive,
   );
@@ -213,23 +225,26 @@ export const Home = props => {
           items={[
             {
               title: 'Wallet Balance',
-              amount: 'N20,412,000',
+              amount: balance,
               buttonName: "View",
-              icon: "balance"
+              icon: "balance",
+              onpress: () => updateActive('Wallet')
 
             },
             {
               title: 'Number of Residents',
               amount: '894',
               buttonName: "View Record",
-              icon: "residence"
+              icon: "residence",
+              onpress: () => updateActive('Commerce')
 
             },
             {
               title: 'Number of Houses',
               amount: '414',
               buttonName: "Pay Ahead",
-              icon: "houses"
+              icon: "houses",
+              onpress: () => updateActive('Commerce')
 
             },
           ]}
@@ -676,7 +691,7 @@ export const Home = props => {
                   paddingHorizontal: '2%',
                 }}>
                 <H1 size={RF(7)} color={'#716D6D'}>
-                  Charles Avis
+                   {editInfo.name.value}
                 </H1>
                 <Hr size={RF(7)} color={'#716D6D'}>
                   Name
@@ -689,7 +704,7 @@ export const Home = props => {
                   paddingHorizontal: '2%',
                 }}>
                 <H1 size={RF(7)} color={'#716D6D'}>
-                  18 Road 55,sdf 
+                   {editInfo.officeAddress.value}
                 </H1>
                 <Hr size={RF(7)} color={'#716D6D'}>
                   Address
@@ -702,7 +717,7 @@ export const Home = props => {
                   paddingHorizontal: '2%',
                 }}>
                 <H1 size={RF(7)} color={'#716D6D'}>
-                  avischarles@info.com
+                   {editInfo.emails[0].value || "N/A"}
                 </H1>
                 <Hr size={RF(7)} color={'#716D6D'}>
                   Email Address
@@ -715,7 +730,7 @@ export const Home = props => {
                   paddingHorizontal: '2%',
                 }}>
                 <H1 size={RF(7)} color={'#716D6D'}>
-                  07012127878
+                  {editInfo.phoneNumbers[0].countryCode}  {editInfo.phoneNumbers[0].value}
                 </H1>
                 <Hr size={RF(7)} color={'#716D6D'}>
                   Phone Number
@@ -728,7 +743,7 @@ export const Home = props => {
                   paddingHorizontal: '2%',
                 }}>
                 <H1 size={RF(7)} color={'#716D6D'}>
-                  Chairman
+                   {editInfo.role}
                 </H1>
                 <Hr size={RF(7)} color={'#716D6D'}>
                   Executive Role
@@ -1283,7 +1298,7 @@ export const Home = props => {
         onBackdropPress={() => setVotingVisible(false)}>
         <View
           style={{
-            // height: RF(900),
+            height: RF(900),
             width: '100%',
             paddingBottom: 30,
             backgroundColor: Colors.appWhite,
@@ -1307,7 +1322,23 @@ export const Home = props => {
             marginLeft: 20
           }}
             onPress={() => setVotingVisible(false)}>
-            <H1 >Start New Eletion</H1>
+            <H1 >Start New Election</H1>
+          </TouchableOpacity>
+          <TouchableOpacity style={{
+            marginVertical: 10,
+
+            marginLeft: 20
+          }}
+            onPress={() => setVotingVisible(false)}>
+            <H1 >Ongoing Election</H1>
+          </TouchableOpacity>
+          <TouchableOpacity style={{
+            marginVertical: 10,
+
+            marginLeft: 20
+          }} 
+            onPress={() => setVotingVisible(false)}>
+            <H1 >End Election</H1>
           </TouchableOpacity>
         </View>
       </Modal>
