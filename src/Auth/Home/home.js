@@ -72,10 +72,9 @@ export const Home = props => {
         passcode == ''
       ) {
 
-        alert('All feilds require');
+        alert('All fields require');
       } else {
         if (phone.length != 11) {
-
           alert('Incorrect phone number`');
         } else {
           if (passcode.length != 4) {
